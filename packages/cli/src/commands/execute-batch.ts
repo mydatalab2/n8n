@@ -1,13 +1,13 @@
 /* eslint-disable @typescript-eslint/no-loop-func */
+import { Container } from '@n8n/di';
 import { Flags } from '@oclif/core';
 import fs from 'fs';
 import { diff } from 'json-diff';
 import pick from 'lodash/pick';
 import type { IRun, ITaskData, IWorkflowExecutionDataProcess } from 'n8n-workflow';
-import { ApplicationError, jsonParse, ErrorReporterProxy } from 'n8n-workflow';
+import { ApplicationError, jsonParse } from 'n8n-workflow';
 import os from 'os';
 import { sep } from 'path';
-import { Container } from 'typedi';
 
 import { ActiveExecutions } from '@/active-executions';
 import type { User } from '@/databases/entities/user';
@@ -822,7 +822,7 @@ export class ExecuteBatch extends BaseCommand {
 					}
 				}
 			} catch (e) {
-				ErrorReporterProxy.error(e, {
+				this.errorReporter.error(e, {
 					extra: {
 						workflowId: workflowData.id,
 					},

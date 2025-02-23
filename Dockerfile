@@ -9,6 +9,12 @@ RUN npm install aws-sdk
 
 # Vuelve al usuario node (recomendado para seguridad)
 USER node
+EXPOSE 5678
 
 # Comando por defecto
 CMD ["n8n"]
+
+
+
+
+

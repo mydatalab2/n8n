@@ -1,14 +1,14 @@
-# Usa la imagen oficial de n8n que ya trae n8n instalado
+# Usa la imagen oficial de n8n
 FROM n8nio/n8n:latest
 
-# Instala aws-sdk de manera global (opcional, si lo necesitas)
+# Cambia a usuario root para instalar dependencias adicionales
 USER root
-RUN npm install -g aws-sdk
+
+# Instala aws-sdk
+RUN npm install aws-sdk
+
+# Vuelve al usuario node (recomendado para seguridad)
 USER node
 
-# Permite a n8n usar aws-sdk en Function Nodes
-ENV NODE_FUNCTION_ALLOW_EXTERNAL=aws-sdk
-
-# (La imagen oficial ya expone el puerto 5678 y tiene un CMD ["tini", "--", "n8n"])
-# Si quieres ser explícito:
-CMD ["tini", "--", "n8n"]
+# Comando por defecto
+CMD ["n8n"]
